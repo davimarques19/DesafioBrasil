@@ -43,7 +43,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
         return new ApiInfoBuilder()
                 .title("Brasil Prev")
                 .description("Desafio")
-                .description("Desafio")
                 .version("1.0")
                 .termsOfServiceUrl("https://github.com/davimarques19")
                 .contact(
