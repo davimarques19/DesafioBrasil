@@ -10,19 +10,22 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String street;
 
     @Column(nullable = false)
-    private String cpf;
+    private String cep;
 
     @Column(nullable = false)
-    private String address;
+    private String city;
+
+    @Column(name = "number_house", nullable = false)
+    private int numberhouse;
 
 }

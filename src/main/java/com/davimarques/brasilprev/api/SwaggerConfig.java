@@ -33,7 +33,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .useDefaultResponseMessages(false)
                 .groupName("BrasilPrev")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.daviestudos.brasilprev.api"))
+                .apis(RequestHandlerSelectors.basePackage("com.davimarques.brasilprev.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
