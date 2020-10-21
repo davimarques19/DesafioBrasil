@@ -1,3 +1,4 @@
+/*
 package com.davimarques.brasilprev.DTO;
 
 import com.davimarques.brasilprev.model.Address;
@@ -22,3 +23,4 @@ public class UserDTO {
         return modelMapper.map(user, UserDTO.class);
     }
 }
+*/

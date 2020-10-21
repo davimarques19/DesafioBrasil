@@ -1,6 +1,5 @@
 package com.davimarques.brasilprev.controller;
 
-import com.davimarques.brasilprev.DTO.UserDTO;
 import com.davimarques.brasilprev.model.User;
 import com.davimarques.brasilprev.services.UserServices;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +11,12 @@ public class UserController {
     UserServices userServices;
 
     @PostMapping
-    public void createUser(@RequestBody User user) {
-        UserDTO userDTO = userServices.create(user);
+    public User createUser(@RequestBody User user) {
+        return userServices.createUser(user);
     }
 
+    @GetMapping()
+    public Iterable<User> getUsers() {
+        return userServices.getUsers();
+    }
 }
