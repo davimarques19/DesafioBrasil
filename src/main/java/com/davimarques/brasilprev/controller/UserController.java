@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/user/v1")
@@ -31,13 +30,21 @@ public class UserController {
         }
     }
 
-    private URI getURI(Long id) {
-        return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+    @PutMapping("/{id}")
+    public ResponseEntity updateUser(@PathVariable("id") Long id, @RequestBody User user) {
+        return userServices.editUser(user, id) != null ?
+
+                ResponseEntity.ok().build() :
+                ResponseEntity.notFound().build();
     }
 
     @GetMapping()
     public ResponseEntity getAll() {
 
         return ResponseEntity.ok(userServices.findAll());
+    }
+
+    private URI getURI(Long id) {
+        return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
     }
 }
