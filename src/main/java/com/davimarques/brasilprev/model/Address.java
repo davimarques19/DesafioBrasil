@@ -1,3 +1,4 @@
+/*
 package com.davimarques.brasilprev.model;
 
 import lombok.AllArgsConstructor;
@@ -29,3 +30,4 @@ public class Address {
     private int numberhouse;
 
 }
+*/

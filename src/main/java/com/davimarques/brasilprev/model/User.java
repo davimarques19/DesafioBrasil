@@ -1,19 +1,14 @@
 package com.davimarques.brasilprev.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
-@Entity
-@Table(name = "user")
 @Data
 @AllArgsConstructor
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 1l;
+@NoArgsConstructor
+@Entity
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +22,5 @@ public class User implements Serializable {
 
     @Column(nullable = false)
     private String address;
-
-    public User() {}
 
 }

@@ -1,4 +1,4 @@
-package com.davimarques.brasilprev.api;
+package com.davimarques.brasilprev.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
