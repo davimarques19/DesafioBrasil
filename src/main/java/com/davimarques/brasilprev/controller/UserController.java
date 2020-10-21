@@ -17,6 +17,16 @@ public class UserController {
     @Autowired
     private UserServices userServices;
 
+    @GetMapping()
+    public ResponseEntity getAll() {
+        return ResponseEntity.ok(userServices.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getUserById(@PathVariable("id") Long id) {
+        return userServices.getUserById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     public ResponseEntity createUser(@RequestBody User user) {
         try {
@@ -37,13 +47,7 @@ public class UserController {
                 ResponseEntity.ok().build() :
                 ResponseEntity.notFound().build();
     }
-
-    @GetMapping()
-    public ResponseEntity getAll() {
-
-        return ResponseEntity.ok(userServices.findAll());
-    }
-
+    
     private URI getURI(Long id) {
         return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
     }

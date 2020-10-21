@@ -43,6 +43,10 @@ public class UserServices {
         }
     }
 
+    public Optional<UserDTO> getUserById(Long id) {
+        return userRepository.findById(id).map(UserDTO::create);
+    }
+
     public List<UserDTO> findAll() {
         return userRepository.findAll().stream().map(UserDTO::create).collect(Collectors.toList());
     }
