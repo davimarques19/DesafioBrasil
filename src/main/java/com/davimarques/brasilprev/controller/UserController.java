@@ -40,6 +40,10 @@ public class UserController {
         }
     }
 
+    private URI getURI(Long id) {
+        return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity updateUser(@PathVariable("id") Long id, @RequestBody User user) {
         return userServices.editUser(user, id) != null ?
@@ -47,8 +51,13 @@ public class UserController {
                 ResponseEntity.ok().build() :
                 ResponseEntity.notFound().build();
     }
-    
-    private URI getURI(Long id) {
-        return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteCar(@PathVariable("id") Long id){
+
+        return  userServices.delete(id) ?
+                ResponseEntity.ok().build() :
+                ResponseEntity.notFound().build();
+
     }
 }

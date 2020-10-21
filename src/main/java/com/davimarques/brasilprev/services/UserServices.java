@@ -18,8 +18,15 @@ public class UserServices {
     @Autowired
     private UserRepository userRepository;
 
-    public UserDTO create(User user) {
+    public List<UserDTO> findAll() {
+        return userRepository.findAll().stream().map(UserDTO::create).collect(Collectors.toList());
+    }
 
+    public Optional<UserDTO> getUserById(Long id) {
+        return userRepository.findById(id).map(UserDTO::create);
+    }
+
+    public UserDTO create(User user) {
         Assert.isNull(user.getId(), "Não foi possível inserir o carro");
         return UserDTO.create(userRepository.save(user));
     }
@@ -43,12 +50,13 @@ public class UserServices {
         }
     }
 
-    public Optional<UserDTO> getUserById(Long id) {
-        return userRepository.findById(id).map(UserDTO::create);
-    }
-
-    public List<UserDTO> findAll() {
-        return userRepository.findAll().stream().map(UserDTO::create).collect(Collectors.toList());
+    public boolean delete(Long id) {
+        if (getUserById(id).isPresent()) {
+            userRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
