@@ -1,8 +1,10 @@
 package com.davimarques.brasilprev.services;
 
 import com.davimarques.brasilprev.DTO.UserDTO;
+import com.davimarques.brasilprev.exceptions.ObjectNotFoundException;
 import com.davimarques.brasilprev.model.User;
 import com.davimarques.brasilprev.repository.UserRepository;
+import org.hibernate.ObjectDeletedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -22,8 +24,9 @@ public class UserServices {
         return userRepository.findAll().stream().map(UserDTO::create).collect(Collectors.toList());
     }
 
-    public Optional<UserDTO> getUserById(Long id) {
-        return userRepository.findById(id).map(UserDTO::create);
+    public UserDTO getUserById(Long id) {
+        return userRepository.findById(id).map(UserDTO::create).orElseThrow(() ->
+                new ObjectNotFoundException("Usuário não encontrado"));
     }
 
     public UserDTO create(User user) {
@@ -50,13 +53,8 @@ public class UserServices {
         }
     }
 
-    public boolean delete(Long id) {
-        if (getUserById(id).isPresent()) {
-            userRepository.deleteById(id);
-            return true;
-        } else {
-            return false;
-        }
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 
 }

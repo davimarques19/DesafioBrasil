@@ -24,20 +24,15 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity getUserById(@PathVariable("id") Long id) {
-        return userServices.getUserById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(userServices.getUserById(id));
     }
 
     @PostMapping
     public ResponseEntity createUser(@RequestBody User user) {
-        try {
-            UserDTO c = userServices.create(user);
+        UserDTO c = userServices.create(user);
 
-            URI location = getURI(c.getId());
-            return ResponseEntity.created(location).build();
-        }
-        catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+        URI location = getURI(c.getId());
+        return ResponseEntity.created(location).build();
     }
 
     private URI getURI(Long id) {
@@ -54,10 +49,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteCar(@PathVariable("id") Long id){
-
-        return  userServices.delete(id) ?
-                ResponseEntity.ok().build() :
-                ResponseEntity.notFound().build();
-
+        userServices.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
