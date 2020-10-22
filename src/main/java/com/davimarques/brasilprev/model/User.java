@@ -23,7 +23,7 @@ public class User {
     private String cpf;
 
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "id_address", nullable = false)
+    @JoinColumn(name = "id_address")
     private Address address;
 
 }

@@ -8,6 +8,9 @@ import com.davimarques.brasilprev.services.UserServices;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,17 +27,29 @@ class UserServiceTest {
 
 		User user = new User();
 		Address address = new Address();
-		user.setName("Primeiro Teste");
+		user.setName("Teste Criar 1");
 		user.setCpf("11122233344");
 		address.setCep("05555-110");
 		address.setCity("São Paulo");
 		address.setStreet("Rua nova");
 		address.setNumberHouse(123);
+		user.setAddress(address);
 
 		UserDTO userDTO = userServices.create(user);
 
 		Long id = userDTO.getId();
 		assertNotNull(id);
+
+		// Deletar o objeto
+		userServices.delete(id);
+
+		// Verificar se deletou
+		try {
+			userServices.getUserById(id);
+			fail("O carro não foi excluído");
+		} catch (ObjectNotFoundException e) {
+			// OK
+		}
 	}
 
 	@Test
@@ -42,12 +57,13 @@ class UserServiceTest {
 
 		User user = new User();
 		Address address = new Address();
-		user.setName("Primeiro Teste");
+		user.setName("Teste FindById 1");
 		user.setCpf("11122233344");
 		address.setCep("05555-110");
 		address.setCity("São Paulo");
 		address.setStreet("Rua nova");
 		address.setNumberHouse(123);
+		user.setAddress(address);
 
 		UserDTO userDTO = userServices.create(user);
 
@@ -57,31 +73,7 @@ class UserServiceTest {
 		userDTO = userServices.getUserById(id);
 		assertNotNull(userDTO);
 
-		assertEquals("Primeiro Teste",userDTO.getName());
-
-	}
-
-	@Test
-	void testDeleteUser() {
-
-		User user = new User();
-		Address address = new Address();
-		user.setName("Primeiro Teste");
-		user.setCpf("11122233344");
-		address.setCep("05555-110");
-		address.setCity("São Paulo");
-		address.setStreet("Rua nova");
-		address.setNumberHouse(123);
-
-		UserDTO userDTO = userServices.create(user);
-
-		Long id = userDTO.getId();
-		assertNotNull(id);
-		// Buscar o objeto
-		userDTO = userServices.getUserById(id);
-		assertNotNull(userDTO);
-
-		assertEquals("Primeiro Teste",userDTO.getName());
+		assertEquals("Teste FindById 1",userDTO.getName());
 
 		// Deletar o objeto
 		userServices.delete(id);
@@ -96,5 +88,48 @@ class UserServiceTest {
 
 	}
 
+	@Test
+	void testDeleteUser() {
+
+		User user = new User();
+		Address address = new Address();
+		user.setName("Teste Delete 1");
+		user.setCpf("11122233344");
+		address.setCep("05555-110");
+		address.setCity("São Paulo");
+		address.setStreet("Rua nova");
+		address.setNumberHouse(123);
+		user.setAddress(address);
+
+		UserDTO userDTO = userServices.create(user);
+
+		Long id = userDTO.getId();
+		assertNotNull(id);
+		// Buscar o objeto
+		userDTO = userServices.getUserById(id);
+		assertNotNull(userDTO);
+
+		assertEquals("Teste Delete 1",userDTO.getName());
+
+		// Deletar o objeto
+		userServices.delete(id);
+
+		// Verificar se deletou
+		try {
+			userServices.getUserById(id);
+			fail("O carro não foi excluído");
+		} catch (ObjectNotFoundException e) {
+			// OK
+		}
+
+	}
+
+	@Test
+	public void testFindAll() {
+
+		List<UserDTO> users = userServices.findAll(PageRequest.of(0, 10));
+
+		assertEquals(3, users.size());
+	}
 
 }

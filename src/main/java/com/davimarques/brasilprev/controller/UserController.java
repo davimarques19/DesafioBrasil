@@ -4,7 +4,9 @@ import com.davimarques.brasilprev.DTO.UserDTO;
 import com.davimarques.brasilprev.model.User;
 import com.davimarques.brasilprev.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -18,8 +20,9 @@ public class UserController {
     private UserServices userServices;
 
     @GetMapping()
-    public ResponseEntity getAll() {
-        return ResponseEntity.ok(userServices.findAll());
+    public ResponseEntity getAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                 @RequestParam(value = "size", defaultValue = "10") Integer size) {
+        return ResponseEntity.ok(userServices.findAll(PageRequest.of(page, size)));
     }
 
     @GetMapping("/{id}")
@@ -28,6 +31,7 @@ public class UserController {
     }
 
     @PostMapping
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity createUser(@RequestBody User user) {
         UserDTO c = userServices.create(user);
 
@@ -40,6 +44,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity updateUser(@PathVariable("id") Long id, @RequestBody User user) {
         return userServices.editUser(user, id) != null ?
 
@@ -48,6 +53,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @Secured({"ROLE_ADMIN"})
     public ResponseEntity deleteCar(@PathVariable("id") Long id){
         userServices.delete(id);
         return ResponseEntity.ok().build();

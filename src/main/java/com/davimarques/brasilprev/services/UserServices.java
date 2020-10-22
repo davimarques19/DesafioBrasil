@@ -6,6 +6,7 @@ import com.davimarques.brasilprev.model.User;
 import com.davimarques.brasilprev.repository.UserRepository;
 import org.hibernate.ObjectDeletedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -20,8 +21,8 @@ public class UserServices {
     @Autowired
     private UserRepository userRepository;
 
-    public List<UserDTO> findAll() {
-        return userRepository.findAll().stream().map(UserDTO::create).collect(Collectors.toList());
+    public List<UserDTO> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable).stream().map(UserDTO::create).collect(Collectors.toList());
     }
 
     public UserDTO getUserById(Long id) {

@@ -29,11 +29,11 @@ public class UserApiTest {
 
     private ResponseEntity<UserDTO> getUser(String url) {
         return
-                rest.getForEntity(url, UserDTO.class);
+                rest.withBasicAuth("user", "brasil1020").getForEntity(url, UserDTO.class);
     }
 
     private ResponseEntity<List<UserDTO>> findAll(String url) {
-        return rest.exchange(
+        return rest.withBasicAuth("user", "brasil1020").exchange(
                 url,
                 HttpMethod.GET,
                 null,
@@ -55,7 +55,7 @@ public class UserApiTest {
         address.setNumberHouse(123);
 
         // Insert
-        ResponseEntity response = rest.postForEntity("/api/user/v1", user, null);
+        ResponseEntity response = rest.withBasicAuth("admin", "Brasil1000@").postForEntity("/api/user/v1", user, null);
         System.out.println(response);
 
         // Verifica se criou
@@ -69,7 +69,7 @@ public class UserApiTest {
         assertEquals("Primeiro Teste",userDTO.getName());
 
         // Deletar o objeto
-        rest.delete(location);
+        rest.withBasicAuth("admin", "Brasil1000@").delete(location);
 
         // Verificar se deletou
         assertEquals(HttpStatus.NOT_FOUND, getUser(location).getStatusCode());
@@ -82,7 +82,7 @@ public class UserApiTest {
         assertEquals(response.getStatusCode(), HttpStatus.OK);
 
         UserDTO userDTO = response.getBody();
-        assertEquals("Primeiro Teste", userDTO.getName());
+        assertEquals("Primeiro Nome", userDTO.getName());
     }
 
     @Test
