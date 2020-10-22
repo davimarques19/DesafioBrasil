@@ -1,6 +1,5 @@
 # DesafioBrasil
 
-
 ## Descrição do Projeto
 <p align="justify"> Desafio proposta afim de desenvolver uma api rest de usuários </p>
 
@@ -25,3 +24,6 @@ docker-compose up -d --build
 ```
 docker ps
 ```
+<p align="justify"> O banco de dados mysql será exposto na porta 3309 no docker, localmente permanece o padrão 3306</p>
+<p align="justify"> A API será esposta no localhost, porta 8080</p>
+
