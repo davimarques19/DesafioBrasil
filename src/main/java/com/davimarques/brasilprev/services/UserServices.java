@@ -30,7 +30,7 @@ public class UserServices {
     }
 
     public UserDTO create(User user) {
-        Assert.isNull(user.getId(), "Não foi possível inserir o carro");
+        Assert.isNull(user.getId(), "Não foi possível inserir o usuário");
         return UserDTO.create(userRepository.save(user));
     }
 

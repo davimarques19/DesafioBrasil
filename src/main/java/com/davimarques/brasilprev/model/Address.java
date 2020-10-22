@@ -1,4 +1,3 @@
-/*
 package com.davimarques.brasilprev.model;
 
 import lombok.AllArgsConstructor;
@@ -7,15 +6,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_address")
+    private Long idAddress;
 
     @Column(nullable = false)
     private String street;
@@ -27,7 +27,6 @@ public class Address {
     private String city;
 
     @Column(name = "number_house", nullable = false)
-    private int numberhouse;
+    private int numberHouse;
 
 }
-*/

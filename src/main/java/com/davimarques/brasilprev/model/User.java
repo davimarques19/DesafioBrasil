@@ -1,6 +1,8 @@
 package com.davimarques.brasilprev.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -20,7 +22,8 @@ public class User {
     @Column(nullable = false)
     private String cpf;
 
-    @Column(nullable = false)
-    private String address;
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "id_address")
+    private Address address;
 
 }
