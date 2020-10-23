@@ -1,7 +1,13 @@
 # DesafioBrasil
 
 ## Descrição do Projeto
-<p align="justify"> Desafio proposta afim de desenvolver uma api rest de usuários </p>
+<p align="justify"> Desafio proposto afim de desenvolver uma api rest de usuários </p>
+
+<strong>Link Trello para auxiliar no desenvolvimento de tarefas!</strong>
+
+```
+https://trello.com/b/0uqRreMw/brasil-prev
+```
 
 ## Rodar o Projeto localmente
 <p align="justify"> No terminal rode: </p>
