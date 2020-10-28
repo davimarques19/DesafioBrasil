@@ -46,7 +46,7 @@ class UserServiceTest {
 		// Verificar se deletou
 		try {
 			userServices.getUserById(id);
-			fail("O carro não foi excluído");
+			fail("O usuário não foi excluído");
 		} catch (ObjectNotFoundException e) {
 			// OK
 		}
